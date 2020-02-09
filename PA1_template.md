@@ -39,9 +39,26 @@ ggplot(totaldailysteps, aes(x=sumdailysteps))+geom_histogram(bins = 10, fill="da
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
-The mean of total steps per day is: 1.076619\times 10^{4}. 
 
-The median of total steps per day is: 10765
+The mean of total steps per day is: 
+
+```r
+round(mean(totaldailysteps$sumdailysteps),2)
+```
+
+```
+## [1] 10766.19
+```
+
+The median of total steps per day is: `
+
+```r
+median(totaldailysteps$sumdailysteps)
+```
+
+```
+## [1] 10765
+```
 
 ## What is the average daily activity pattern?
 
@@ -59,7 +76,7 @@ avgdaily <-dailyintervalsteps %>%
 ggplot(avgdaily, aes(x=interval, y=avgsteps, type="l"))+geom_line(colour="darkblue")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 Below interval contains the max number of average steps:
 
@@ -76,7 +93,15 @@ avgdaily[which.max(avgdaily$avgsteps),]
 ```
 
 ## Imputing missing values
-1. calculate total number of missing value rows in dataset: 2304
+1. calculate total number of missing value rows in dataset: 
+
+```r
+sum(is.na(activity))
+```
+
+```
+## [1] 2304
+```
 
 2. fill all the missing value fields with mean average steps of the day & create new dataset.
 
@@ -101,11 +126,37 @@ newactivity <-avgstepsna[,c(2,4)]%>%
 ggplot(newactivity, aes(x=totalsteps))+geom_histogram(bins = 10, fill="darkblue")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
-The mean of total daily steps are: 1.0766189\times 10^{4}. This is the same as when na is ignores in steps.
+The mean of total daily steps are: 
 
-The median of total daily steps are: 1.0766189\times 10^{4}. The median figure changed slightly compared to Question 1. when na removed from steps:10765.
+```r
+mean(newactivity$totalsteps)
+```
+
+```
+## [1] 10766.19
+```
+This is the same as when na is ignores in steps.
+
+The median of total daily steps are: 
+
+```r
+median(newactivity$totalsteps)
+```
+
+```
+## [1] 10766.19
+```
+The median figure changed slightly compared to Question 1. when na removed from steps:
+
+```r
+median(totaldailysteps$sumdailysteps)
+```
+
+```
+## [1] 10765
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -126,5 +177,5 @@ avgstepsperinterval <-avgstepsna[,3:5] %>%
 ggplot(avgstepsperinterval, aes(x=interval, y=avgsteps, type="l"))+geom_line(colour="darkblue")+facet_wrap(~wDay, nrow=2)+theme(strip.background = element_rect(fill="orange"))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
