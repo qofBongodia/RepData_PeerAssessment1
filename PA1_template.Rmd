@@ -43,9 +43,16 @@ ggplot(totaldailysteps, aes(x=sumdailysteps))+geom_histogram(bins = 10, fill="da
             color="green", linetype="dashed",size=1)
 ```
 
-The mean of total steps per day is: `r round(mean(totaldailysteps$sumdailysteps),2)`. 
 
-The median of total steps per day is: `r median(totaldailysteps$sumdailysteps)`
+The mean of total steps per day is: 
+```{r}
+round(mean(totaldailysteps$sumdailysteps),2)
+```
+
+The median of total steps per day is: `
+```{r}
+median(totaldailysteps$sumdailysteps)
+```
 
 ## What is the average daily activity pattern?
 ```{r}
@@ -70,7 +77,10 @@ avgdaily[which.max(avgdaily$avgsteps),]
 ```
 
 ## Imputing missing values
-1. calculate total number of missing value rows in dataset: `r sum(is.na(activity))`
+1. calculate total number of missing value rows in dataset: 
+```{r}
+sum(is.na(activity))
+```
 
 2. fill all the missing value fields with mean average steps of the day & create new dataset.
 ```{r}
@@ -96,9 +106,20 @@ ggplot(newactivity, aes(x=totalsteps))+geom_histogram(bins = 10, fill="darkblue"
 
 ```
 
-The mean of total daily steps are: `r mean(newactivity$totalsteps)`. This is the same as when na is ignores in steps.
+The mean of total daily steps are: 
+```{r}
+mean(newactivity$totalsteps)
+```
+This is the same as when na is ignores in steps.
 
-The median of total daily steps are: `r median(newactivity$totalsteps)`. The median figure changed slightly compared to Question 1. when na removed from steps:`r median(totaldailysteps$sumdailysteps)`.
+The median of total daily steps are: 
+```{r}
+median(newactivity$totalsteps)
+```
+The median figure changed slightly compared to Question 1. when na removed from steps:
+```{r}
+median(totaldailysteps$sumdailysteps)
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
